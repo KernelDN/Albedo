@@ -1,6 +1,7 @@
 const fs = require('fs');
 const Discord = require('discord.js');
 const { prefix, token } = require('./config.json');
+require('dotenv').config();
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
@@ -16,7 +17,7 @@ const cooldowns = new Discord.Collection();
 
 client.once('ready', () => {
     console.log('Ready!');
-    client.user.setActivity('A!help', { type: 'STREAMING', url: 'https://www.twitch.tv/natalo18' });
+    client.user.setActivity('A!help  /  A!info', { type: 'STREAMING', url: 'https://www.twitch.tv/natalo18' });
 });
 
 client.on('message', message => {
@@ -31,24 +32,29 @@ client.on('message', message => {
 	if (!command) return;
 
 	if (command.guildOnly && message.channel.type === 'dm') {
-		return message.reply('Eu não posso executar este comando em DMs!');
+        return message.author.send(`\n⭕️ Eu não posso executar este comando em **DMs**!`)
+        .then(message => { message.delete({ timeout: 5000 })}).catch(O_o => {});
 	}
 
 	if (command.permissions) {
 		const authorPerms = message.channel.permissionsFor(message.author);
 		if (!authorPerms || !authorPerms.has(command.permissions)) {
-			return message.channel.reply('Você não possui permissão para fazer isso!');
+            message.delete().catch(O_o => {});
+            return message.reply(`\n❌ Você não possui **permissão** para fazer isso!`)
+            .then(message => { message.delete({ timeout: 5000 })}).catch(O_o => {});
 		}
 	}
 
 	if (command.args && !args.length) {
-		let reply = `Você não proveu nenhum argumento, ${message.author}!`;
+        message.delete().catch(O_o => {});
+		let reply = `\n⭕️ Nenhum argumento foi declarado! `;
 
 		if (command.usage) {
-			reply += `\nO uso correto seria: \`${prefix}${command.name} ${command.usage}\``;
+			reply += `O uso correto seria: \`${prefix}${command.name} ${command.usage}\``;
 		}
 
-		return message.channel.send(reply);
+        return message.reply(reply)
+        .then(message => { message.delete({ timeout: 5000 })}).catch(O_o => {});
 	}
 
 	if (!cooldowns.has(command.name)) {
@@ -74,9 +80,11 @@ client.on('message', message => {
 	try {
 		command.execute(message, args);
 	} catch (error) {
-		console.error(error);
-		message.reply('Ocorreu um erro ao executar este comando!');
+        console.error(error);
+        message.delete().catch(O_o => {});
+        message.reply(`\n⚠️ Ocorreu um **erro** ao executar este comando!`)
+        .then(message => { message.delete({ timeout: 5000 })}).catch(O_o => {});
 	}
 });
 
-client.login(token);
+client.login();

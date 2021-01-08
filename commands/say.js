@@ -6,6 +6,6 @@ module.exports = {
 	execute(message, args) {
         message.delete().catch(O_o => {});
         
-        message.channel.send(args);
+        message.channel.send(args.join(' '));
 	},
 };

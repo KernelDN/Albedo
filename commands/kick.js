@@ -10,5 +10,7 @@ module.exports = {
         
         const member = message.mentions.members.first();
         member.kick();
+        message.reply(`\n✅ Usuário **kickado** com sucesso!`)
+        .then(message => { message.delete({ timeout: 5000 })}).catch(O_o => {});
 	},
 };

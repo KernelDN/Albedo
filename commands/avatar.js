@@ -1,19 +1,18 @@
+const Discord = require('discord.js');
+
 module.exports = {
 	name: 'avatar',
     description: 'Retorna o avatar de um usuário.',
-    aliases: 'a',
-    usage: '<usuário>',
 	execute(message) {
         message.delete().catch(O_o => {});
         
-		if (!message.mentions.users.size) {
-			return message.channel.send(`Seu avatar: <${message.author.displayAvatarURL({ dynamic: true })}>`);
-		}
+        const user = message.mentions.users.first() || message.author;
+        
+        const avatarEmbed = new Discord.MessageEmbed()
+            .setColor('#6d00c1')
+            .setTitle(`🇧🇷 Avatar de: ${user.username}`)
+            .setImage(user.displayAvatarURL());
 
-		const avatarList = message.mentions.users.map(user => {
-			return `Avatar de ${user.username}: <${user.displayAvatarURL({ dynamic: true })}>`;
-		});
-
-		message.channel.send(avatarList);
+        message.channel.send(avatarEmbed);
 	},
 };

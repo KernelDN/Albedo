@@ -10,5 +10,7 @@ module.exports = {
         
         const user = message.mentions.users.first();
         guild.members.ban(user);
+        message.reply(`\n✅ Usuário **banido** com sucesso!`)
+        .then(message => { message.delete({ timeout: 5000 })}).catch(O_o => {});
 	},
 };

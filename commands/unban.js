@@ -10,5 +10,7 @@ module.exports = {
         
         const id = args[0];
         guild.members.unban(id);
+        message.reply(`\n✅ Usuário **desbanido** com sucesso!`)
+        .then(message => { message.delete({ timeout: 5000 })}).catch(O_o => {});
 	},
 };
