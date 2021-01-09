@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/KernelDN/Albedo#readme",
   "dependencies": {
+    "akaneko": "^5.0.1",
+    "danbooru": "^3.1.0",
     "discord.js": "^12.5.1",
     "dotenv": "^8.2.0"
   }

@@ -8,19 +8,30 @@ module.exports = {
         message.delete().catch(O_o => {});
 
         const helpEmbed = new Discord.MessageEmbed()
-            .setAuthor('Albedo', `${message.client.user.displayAvatarURL()}`)
             .setThumbnail(`${message.client.user.displayAvatarURL()}`)
             .setColor('#6d00c1')
-            .setTitle('Aqui está a lista de todos os meus comandos!\nprefixo: A! ou a!')
+            .setTitle('Comandos Disponíveis')
+            .setDescription('Utilize o prefixo ` A! ` seguido por um dos comandos abaixo:')
             .addFields(
-                { name: '⚖️  Moderação', value: 'ban\nunban\nkick\naddrole\nremoverole\nclear', inline: true },
-                { name: '🥳  Diversão', value: 'avatar\nsay\ncoin\ndado\n8ball\nkiss', inline: true },
-                { name: '🎵  Música', value: 'play\npause\nskip\nqueue', inline: true },
+                { name: '⚖️  Moderação', value: 'ban\nunban\nkick\nclear', inline: true },
+                { name: '⚙️  Cargos', value: 'addrole\nremoverole\nmute\nunmute', inline: true },
+                { name: '🎨  Diversos', value: 'avatar\ninfo\nsay', inline: true },
                 { name: '\u200B', value: '\u200B' },
             )
-            .setTimestamp()
-	        .setFooter(`Requisitado por ${message.author.username}`, `${message.author.displayAvatarURL()}`);
+            
+        const helpEmbed2 = new Discord.MessageEmbed()
+            .setThumbnail(`${message.client.user.displayAvatarURL()}`)
+            .setColor('#6d00c1')
+            .setTitle('Comandos NSFW')
+            .setDescription('Utilize o comando ` A!nsfw ` seguido por um dos termos abaixo:')
+            .addFields(
+                { name: '\u200B', value: 'ass\nbdsm\nblowjob\ncum\ndoujin\nfeet\nfemdom\nfoxgirl', inline: true },
+                { name: '\u200B', value: 'gifs\nglasses\nhentai\nnetorare\nloli\nmaid\nmasturbation\norgy', inline: true },
+                { name: '\u200B', value: 'panties\npussy\nschool\ntentacles\nthighs\nuglyBastard\nuniform\nyuri\nzettaiRyouiki', inline: true },
+                { name: '\u200B', value: '\u200B' },
+            )
 		
-		message.author.send(helpEmbed);
+        message.author.send(helpEmbed);
+        message.author.send(helpEmbed2);
 	},
 };
